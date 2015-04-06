@@ -37,6 +37,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLViewImpl::create("ModelViewer");
+        [glview setMultipleTouchEnabled:YES];
         director->setOpenGLView(glview);
     }
 

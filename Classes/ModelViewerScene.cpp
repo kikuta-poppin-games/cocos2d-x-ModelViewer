@@ -121,8 +121,11 @@ ModelViewer::~ModelViewer()
 
 void ModelViewer::onTouchsMovedThis( const std::vector<Touch*> &touchs, Event *event )
 {
-    if (!touchs.empty())
-    {
+    if (touchs.empty()) {
+        return;
+    }
+
+    if (touchs.size() == 1) {
         Size visibleSize = Director::getInstance()->getVisibleSize();
         Vec2 prelocation = touchs[0]->getPreviousLocationInView();
         Vec2 location = touchs[0]->getLocationInView();
@@ -137,6 +140,20 @@ void ModelViewer::onTouchsMovedThis( const std::vector<Touch*> &touchs, Event *e
         Quaternion quat(axes, angle);
         _rotation = quat * _rotation;
 
+        updateCameraTransform();
+    } else if (touchs.size() == 2) {
+        Vec2 prelocation1 = touchs[0]->getPreviousLocationInView();
+        Vec2 prelocation2 = touchs[1]->getPreviousLocationInView();
+        Vec2 location1 = touchs[0]->getLocationInView();
+        Vec2 location2 = touchs[1]->getLocationInView();
+        float distance1 = prelocation1.distance(prelocation2);
+        float distance2 = location1.distance(location2);
+
+        if (distance1 - distance2 > 0) {
+            _distance += (distance1 - distance2) * _orginDistance * 0.1f;
+        } else {
+            _distance += (distance2 - distance1) * _orginDistance * 0.1f;
+        }
         updateCameraTransform();
     }
 }

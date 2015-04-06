@@ -1,11 +1,12 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "ModelViewerScene.h"
 
 USING_NS_CC;
 
 
 AppDelegate::AppDelegate()
 {
+    _modelFilePath = "girl.c3b";
 }
 
 

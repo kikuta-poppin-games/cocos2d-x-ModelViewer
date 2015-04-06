@@ -1,4 +1,4 @@
-#include "HelloWorldScene.h"
+#include "ModelViewerScene.h"
 
 USING_NS_CC;
 //include for particle
@@ -44,8 +44,7 @@ Scene* ModelViewer::createScene(const std::string &filePath)
 
     // 'layer' is an autorelease object
     auto layer = ModelViewer::create();
-    const std::string file = "girl.c3b";
-    layer->loadModelOrParticle(file);
+    layer->loadModelOrParticle(filePath);
     layer->setCamera();
     layer->resetCamera();
 
@@ -222,6 +221,7 @@ void ModelViewer::updateCameraTransform()
     _camera->setNodeToParentTransform(result);
 }
 
+#ifdef TARGET_OS_X
 void ModelViewer::onKeyPressedThis( EventKeyboard::KeyCode keycode, Event *event )
 {
     switch (keycode)
@@ -235,6 +235,7 @@ void ModelViewer::onKeyPressedThis( EventKeyboard::KeyCode keycode, Event *event
         break;
     }
 }
+#endif
 
 void ModelViewer::resetCamera()
 {
@@ -302,8 +303,8 @@ void ModelViewer::loadParticle(const std::string &filePath)
 
 void ModelViewer::getFileExtension(const char *file_name,char *extension)
 {
-    int i=0,length;  
-    length=strlen(file_name);  
+    int i=0;
+    size_t length=strlen(file_name);
     while(file_name[i])  
     {  
         if(file_name[i]=='.')  

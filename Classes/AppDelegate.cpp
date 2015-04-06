@@ -3,6 +3,12 @@
 
 USING_NS_CC;
 
+
+AppDelegate::AppDelegate()
+{
+}
+
+
 AppDelegate::AppDelegate(const std::string &filePath)
     : _modelFilePath(filePath)
 {

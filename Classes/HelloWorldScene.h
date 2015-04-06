@@ -28,8 +28,11 @@ protected:
     void loadParticle(const std::string &filePath);
 
     void onTouchsMovedThis(const std::vector<cocos2d::Touch*> &touchs, cocos2d::Event *event);
+
+#ifdef TARGET_OS_X
     void onMouseScrollThis(cocos2d::Event* event);
     void onMouseMovedThis(cocos2d::Event* event);
+#endif
     void onKeyPressedThis(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event *event);
 
     void trackball( cocos2d::Vec3 & axis, float & angle, float p1x, float p1y, float p2x, float p2y );

@@ -44,7 +44,8 @@ Scene* ModelViewer::createScene(const std::string &filePath)
 
     // 'layer' is an autorelease object
     auto layer = ModelViewer::create();
-    layer->loadModelOrParticle(filePath);
+    const std::string file = "girl.c3b";
+    layer->loadModelOrParticle(file);
     layer->setCamera();
     layer->resetCamera();
 
@@ -69,6 +70,7 @@ bool ModelViewer::init()
     listenertouch->onTouchesMoved = CC_CALLBACK_2(ModelViewer::onTouchsMovedThis, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenertouch, this);
 
+#ifdef TARGET_OS_X
     auto listenermouse= EventListenerMouse::create();
     listenermouse->onMouseScroll = CC_CALLBACK_1(ModelViewer::onMouseScrollThis, this);
     listenermouse->onMouseMove = CC_CALLBACK_1(ModelViewer::onMouseMovedThis, this);
@@ -77,7 +79,8 @@ bool ModelViewer::init()
     auto listenerkeyboard= EventListenerKeyboard::create();
     listenerkeyboard->onKeyPressed = CC_CALLBACK_2(ModelViewer::onKeyPressedThis, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerkeyboard, this);
-
+#endif
+    
     _layer = Layer::create();
     _layer->retain();
     addChild(_layer);
@@ -139,6 +142,7 @@ void ModelViewer::onTouchsMovedThis( const std::vector<Touch*> &touchs, Event *e
     }
 }
 
+#ifdef TARGET_OS_X
 void ModelViewer::onMouseScrollThis( Event* event )
 {
     EventMouse *em = dynamic_cast<EventMouse *>(event);
@@ -168,6 +172,7 @@ void ModelViewer::onMouseMovedThis( Event* event )
         _preMouseLocation = em->getLocation();
     }
 }
+#endif
 
 float ModelViewer::tb_project_to_sphere( float r, float x, float y )
 {
